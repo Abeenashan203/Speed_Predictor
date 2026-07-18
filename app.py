@@ -13,21 +13,12 @@ st.set_page_config(page_title="VEHICLE SPEED DETECTOR", layout="wide")
 # ==========================================
 # 🌌 TWO-VIDEO BACKGROUND PLAYLIST ENGINE 🎬
 # ==========================================
+# Streaming directly using the GitHub Raw content delivery engine
 url_1 = "https://raw.githubusercontent.com/Abeenashan203/Speed_Predictor/main/car_video1.mp4"
 url_2 = "https://raw.githubusercontent.com/Abeenashan203/Speed_Predictor/main/car_video2.mp4"
 
 playlist_html = f"""
-<!-- Import Premium High-Contrast Font Style from Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
 <style>
-/* Global Font Style Override - Customizes font styling, keeps original sizes intact */
-html, body, [class*="css"], .stApp, p, span, label, div {{
-    font-family: 'Poppins', sans-serif !important;
-}}
-
 /* 1. Anchors the background video to fill the viewport seamlessly */
 #bgVideo {{
   position: fixed;
@@ -59,11 +50,6 @@ div[data-baseweb="base-input"],
     border-color: transparent !important;
 }}
 
-/* Force all dashboard widget labels and markdown texts to remain visible over dark frames */
-label, p, .stMarkdown, div[data-testid="stWidgetLabel"] p, .stRadio div {{
-    color: #FFFFFF !important;
-}}
-
 /* Removes default top/bottom block padding */
 [data-testid="stAppViewContainer"] {{
     padding-top: 0 !important;
@@ -82,11 +68,16 @@ const source = document.getElementById('videoSource');
 const playlist = ["{url_1}", "{url_2}"];
 let currentVideoIndex = 0;
 
+// Upgraded loop engine that explicitly resets video element properties to force continuous playback
 video.addEventListener('ended', function() {{
     currentVideoIndex = (currentVideoIndex + 1) % playlist.length;
+    
+    // Append a micro timestamp to force the browser to bypass any broken network cache streams
     const nextVideoUrl = playlist[currentVideoIndex] + "?t=" + new Date().getTime();
+    
     video.src = nextVideoUrl;
     source.src = nextVideoUrl;
+    
     video.load();
     video.play().catch(error => console.log("Streamlit background engine loop logs:", error));
 }});
@@ -99,7 +90,7 @@ st.markdown(playlist_html, unsafe_allow_html=True)
 # ⚡ DASHBOARD HEADERS & SIDEBAR 📊
 # ==========================================
 st.title("🚗 Vehicle Speed Estimator & Analytics System 📈")
-st.markdown("---")
+st.markdown("-----")
 
 st.sidebar.header("🎛️ System Configuration ⚙️")
 SPEED_LIMIT = st.sidebar.slider("🚨 Speed Limit (km/h)", min_value=30, max_value=120, value=60)
