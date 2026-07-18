@@ -68,11 +68,18 @@ const source = document.getElementById('videoSource');
 const playlist = ["{url_1}", "{url_2}"];
 let currentVideoIndex = 0;
 
+// Upgraded loop engine that explicitly resets video element properties to force continuous playback
 video.addEventListener('ended', function() {{
     currentVideoIndex = (currentVideoIndex + 1) % playlist.length;
-    source.src = playlist[currentVideoIndex];
+    
+    // Append a micro timestamp to force the browser to bypass any broken network cache streams
+    const nextVideoUrl = playlist[currentVideoIndex] + "?t=" + new Date().getTime();
+    
+    video.src = nextVideoUrl;
+    source.src = nextVideoUrl;
+    
     video.load();
-    video.play().catch(error => console.log("Playback loop logs:", error));
+    video.play().catch(error => console.log("Streamlit background engine loop logs:", error));
 }});
 </script>
 """
