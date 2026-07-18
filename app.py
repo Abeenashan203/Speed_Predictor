@@ -29,18 +29,25 @@ SPEED_LIMIT=st.sidebar.slider("Speed Limit (km/h)",min_value=30,max_value=120,va
 PPM=st.sidebar.number_input("Pixels Per Meter (PPM Calibration)",min_value=1.0,max_value=50.0,value=10.0)
 
 # Load The Model file
+# Load The Model file directly from your GitHub repository workspace
 @st.cache_resource
 def load_models():
-  if os.path.exists("vehicle_svm_detector.joblib") and os.path.exists("svm_scaler.joblib"):
-    model=joblib.load("vehicle_svm_detector.joblib")
-    scaler=joblib.load("svm_scaler.joblib")
-    return model,scaler
-  return None,None
-svm_model,svm_scaler=load_models()
+    model_path = "vehicle_svm_detector.joblib"
+    scaler_path = "svm_scaler.joblib"
+    
+    if os.path.exists(model_path) and os.path.exists(scaler_path):
+        model = joblib.load(model_path)
+        scaler = joblib.load(scaler_path)
+        return model, scaler
+    return None, None
 
+svm_model, svm_scaler = load_models()
+
+# Fallback check in case the files are named differently in your repo
 if svm_model is None:
-  st.error("🛑 'vehicle_svm_detector.joblib' & 'svm_scaler.joblib'Not Founded!")
-  st.stop()
+    st.error("🛑 'vehicle_svm_detector.joblib' & 'svm_scaler.joblib' were not found in the repository root directory.")
+    st.info("💡 Double-check that the file names match exactly (lowercase/uppercase) with what you uploaded to GitHub.")
+    st.stop()
 
 # Video Upload
 uploaded_file=st.file_uploader("Upload Traffic Video File (MP4 ,AVI)",type=["MP4","AVI"])
