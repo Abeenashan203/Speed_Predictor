@@ -224,9 +224,9 @@ if uploaded_file is not None:
                     label = f"ID:{obj_id} {v_class} | {speed} km/h"
                     cv2.putText(stabilized, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
-                    # 7. BUSINESS-ORIENTED OPTIMIZATION (Violation Logging)
+                   # 7. BUSINESS-ORIENTED OPTIMIZATION (Violation Logging)
                     if speed > SPEED_LIMIT:
-			                  log_entry = {"Vehicle ID": obj_id, "Type": v_class, "Speed": f"{speed} km/h", "Status": "🔥 OVER SPEED"}
+                        log_entry = {"Vehicle ID": obj_id, "Type": v_class, "Speed": f"{speed} km/h", "Status": "🔥 OVER SPEED"}
                         if log_entry not in violation_log:
                             violation_log.append(log_entry)
                             #Data Science View
