@@ -52,10 +52,6 @@ if svm_model is None:
 # Video Upload
 uploaded_file=st.file_uploader("Upload Traffic Video File (MP4 ,AVI)",type=["MP4","AVI"])
 
-"""## 3.BACKEND CORE PIPELINE FUNCTIONS
-
-A.IMAGE STABILIZATION(Digital Stabilization Using Optical Flow)
-"""
 
 def stabilize_frame(prev_frame, curr_frame):
     if prev_frame is None:
@@ -80,7 +76,6 @@ def stabilize_frame(prev_frame, curr_frame):
             return stabilized
     return curr_frame
 
-"""B.CROP,EXTRACT HOG & CLASSIFY(Inference Pipeline)"""
 
 def classify_vehicle(cropped_img):
     if cropped_img is None or cropped_img.size == 0:
@@ -97,7 +92,6 @@ def classify_vehicle(cropped_img):
     prediction=svm_model.predict(scaled_feat)[0]
     return prediction
 
-"""C.VEHICLE TRACKING & SPEED ESTIMATION MATH(class CentroidTracker)"""
 
 class CentroidTracker:
     def __init__(self):
@@ -158,7 +152,6 @@ class CentroidTracker:
         self.objects=new_objects
         return self.objects
 
-"""## 4.MAIN EXECUTION PIPELINE"""
 
 if uploaded_file is not None:
     #save the video temporarily
@@ -201,7 +194,7 @@ if uploaded_file is not None:
         rects=[]
         for cnt in contours:
             area=cv2.contourArea(cnt)
-            if area > 400: # சிறிய தேவையில்லாத புள்ளிகளைத் தவிர்க்க
+            if area > 400: 
                 x,y,w,h=cv2.boundingRect(cnt)
                 rects.append((x,y,w,h))
 
