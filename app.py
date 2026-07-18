@@ -13,21 +13,12 @@ st.set_page_config(page_title="VEHICLE SPEED DETECTOR", layout="wide")
 # ==========================================
 # 🌌 TWO-VIDEO BACKGROUND PLAYLIST ENGINE 🎬
 # ==========================================
+# Streaming directly using the GitHub Raw content delivery engine
 url_1 = "https://raw.githubusercontent.com/Abeenashan203/Speed_Predictor/main/car_video1.mp4"
 url_2 = "https://raw.githubusercontent.com/Abeenashan203/Speed_Predictor/main/car_video2.mp4"
 
 playlist_html = f"""
-<!-- Import Premium High-Contrast Font from Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-
 <style>
-/* Global Font & Color Override */
-html, body, [class*="css"], .stApp, p, span, label, div {{
-    font-family: 'Poppins', sans-serif !important;
-}}
-
 /* 1. Anchors the background video to fill the viewport seamlessly */
 #bgVideo {{
   position: fixed;
@@ -59,12 +50,6 @@ div[data-baseweb="base-input"],
     border-color: transparent !important;
 }}
 
-/* Force all text inside radio options and markdown to have high-contrast visibility */
-label, p, .stMarkdown, div[data-testid="stWidgetLabel"] p {{
-    color: #FFFFFF !important;
-    font-weight: 500 !important;
-}}
-
 /* Removes default top/bottom block padding */
 [data-testid="stAppViewContainer"] {{
     padding-top: 0 !important;
@@ -83,11 +68,16 @@ const source = document.getElementById('videoSource');
 const playlist = ["{url_1}", "{url_2}"];
 let currentVideoIndex = 0;
 
+// Upgraded loop engine that explicitly resets video element properties to force continuous playback
 video.addEventListener('ended', function() {{
     currentVideoIndex = (currentVideoIndex + 1) % playlist.length;
+    
+    // Append a micro timestamp to force the browser to bypass any broken network cache streams
     const nextVideoUrl = playlist[currentVideoIndex] + "?t=" + new Date().getTime();
+    
     video.src = nextVideoUrl;
     source.src = nextVideoUrl;
+    
     video.load();
     video.play().catch(error => console.log("Streamlit background engine loop logs:", error));
 }});
@@ -99,13 +89,12 @@ st.markdown(playlist_html, unsafe_allow_html=True)
 # ==========================================
 # ⚡ DASHBOARD HEADERS & SIDEBAR 📊
 # ==========================================
-# Shortcodes (:car:, :chart_with_upwards_trend:) used below guarantee colorful system emoji rendering
-st.title(":car: Vehicle Speed Estimator & Analytics System :chart_with_upwards_trend:")
+st.title("🚗 Vehicle Speed Estimator & Analytics System 📈")
 st.markdown("-----")
 
-st.sidebar.header(":control_knobs: System Configuration :gear:")
-SPEED_LIMIT = st.sidebar.slider(":rotating_light: Speed Limit (km/h)", min_value=30, max_value=120, value=60)
-PPM = st.sidebar.number_input(":straight_ruler: Pixels Per Meter (PPM Calibration)", min_value=1.0, max_value=50.0, value=10.0)
+st.sidebar.header("🎛️ System Configuration ⚙️")
+SPEED_LIMIT = st.sidebar.slider("🚨 Speed Limit (km/h)", min_value=30, max_value=120, value=60)
+PPM = st.sidebar.number_input("📏 Pixels Per Meter (PPM Calibration)", min_value=1.0, max_value=50.0, value=10.0)
 
 # Load Models
 @st.cache_resource
@@ -119,24 +108,24 @@ def load_models():
 svm_model, svm_scaler = load_models()
 
 if svm_model is None:
-    st.error(":stop_sign: 'vehicle_svm_detector.joblib' & 'svm_scaler.joblib' were not found in the repository root directory.")
+    st.error("🛑 'vehicle_svm_detector.joblib' & 'svm_scaler.joblib' were not found in the repository root directory.")
     st.stop()
 
 
 # ==========================================
 # 📹 INPUT SELECTION (FILE VS LIVE CAMERA) 📸
 # ==========================================
-source_type = st.radio(":hammer_and_wrench: Select Video Input Source:", [":file_folder: Upload Video File", ":camera: Live Web Camera Feed"], horizontal=True)
+source_type = st.radio("🛠️ Select Video Input Source:", ["📁 Upload Video File", "📷 Live Web Camera Feed"], horizontal=True)
 
 uploaded_file = None
 camera_file = None
 
-if source_type == ":file_folder: Upload Video File":
-    uploaded_file = st.file_uploader(":arrow_heading_up: Upload Traffic Video File (MP4, AVI) :film_strip:", type=["MP4", "AVI"])
+if source_type == "📁 Upload Video File":
+    uploaded_file = st.file_uploader("📤 Upload Traffic Video File (MP4, AVI) 🎞️", type=["MP4", "AVI"])
 else:
-    camera_file = st.camera_input(":camera: Capture/Stream Live Traffic Footage")
+    camera_file = st.camera_input("📸 Capture/Stream Live Traffic Footage")
 
-active_video = uploaded_file if source_type == ":file_folder: Upload Video File" else camera_file
+active_video = uploaded_file if source_type == "📁 Upload Video File" else camera_file
 
 
 # ==========================================
@@ -223,10 +212,10 @@ if active_video is not None:
 
     col1, col2 = st.columns([2, 1])
     with col1:
-        st.subheader(":video_camera: Real-time Video Analysis :magnifying_glass_tilted_left:")
+        st.subheader("🎥 Real-time Video Analysis 🔍")
         video_placeholder = st.empty()
     with col2:
-        st.subheader(":collision: Speed Limit Violations Log :clipboard:")
+        st.subheader("💥 Speed Limit Violations Log 📋")
         log_placeholder = st.empty()
 
     violation_log = []
@@ -261,7 +250,7 @@ if active_video is not None:
                     cv2.putText(stabilized, f"ID:{obj_id} {v_class} | {speed} km/h", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
                     if speed > SPEED_LIMIT:
-                        log_entry = {":warning: Vehicle ID": obj_id, ":blue_car: Type": v_class, ":dash: Speed": f"{speed} km/h", ":high_voltage: Status": "🔥 OVER SPEED"}
+                        log_entry = {"⚠️ Vehicle ID": obj_id, "🚙 Type": v_class, "💨 Speed": f"{speed} km/h", "⚡ Status": "🔥 OVER SPEED"}
                         if log_entry not in violation_log:
                             violation_log.append(log_entry)
                             with col2:
@@ -272,4 +261,4 @@ if active_video is not None:
         time.sleep(1 / fps)
 
     cap.release()
-    st.success(":partying_face: Video Speed Prediction Completed! :sparkles: :rocket:")
+    st.success("🎉 Video Speed Prediction Completed! ✨ 🚀")
