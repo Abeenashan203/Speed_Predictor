@@ -147,7 +147,7 @@ class CentroidTracker:
                     self.speeds[matched_id]=speed_kmh
             else:
                 # Identify the new vehicle,and calculate using svm
-                cropped  frame[y:y+h,x:x+w]
+                cropped =frame[y:y+h,x:x+w]
                 v_class=classify_vehicle(cropped)
 
                 if v_class is not None:
