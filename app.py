@@ -13,11 +13,9 @@ st.set_page_config(page_title="VEHICLE SPEED DETECTOR", layout="wide")
 # ==========================================
 # 🌌 TWO-VIDEO BACKGROUND PLAYLIST ENGINE 🎬
 # ==========================================
-VIDEO_1_ID = "1L13pk5HG3tgNM1ubrdqe2QGiI-8HPjZB" 
-VIDEO_2_ID = "1jWE9FgxGsTSksyQ5YhD4NWn1tZbZYJ1N" 
-
-url_1 = f"https://docs.google.com/uc?export=download&id={VIDEO_1_ID}"
-url_2 = f"https://docs.google.com/uc?export=download&id={VIDEO_2_ID}"
+# Streaming directly using the GitHub Raw content delivery engine
+url_1 = "https://raw.githubusercontent.com/Abeenashan203/Speed_Predictor/main/car_video1.mp4"
+url_2 = "https://raw.githubusercontent.com/Abeenashan203/Speed_Predictor/main/car_video2.mp4"
 
 playlist_html = f"""
 <style>
