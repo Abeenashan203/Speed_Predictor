@@ -1,8 +1,8 @@
 import streamlit as st
 
 # 1. Define the Google Drive URLs for both videos
-VIDEO_1_ID = "" # The 10.1 MB low-angle car video
-VIDEO_2_ID = "" # The 8.5 MB blue sedan video
+VIDEO_1_ID = "1L13pk5HG3tgNM1ubrdqe2QGiI-8HPjZB" # The 10.1 MB low-angle car video
+VIDEO_2_ID = "1jWE9FgxGsTSksyQ5YhD4NWn1tZbZYJ1N" # The 8.5 MB blue sedan video
 
 url_1 = f"https://docs.google.com/uc?export=download&id={VIDEO_1_ID}"
 url_2 = f"https://docs.google.com/uc?export=download&id={VIDEO_2_ID}"
