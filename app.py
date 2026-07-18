@@ -20,7 +20,7 @@ url_2 = "https://raw.githubusercontent.com/Abeenashan203/Speed_Predictor/main/ca
 playlist_html = f"""
 <style>
 /* 1. Anchors the background video to fill the viewport seamlessly */
-#bgVideo {
+#bgVideo {{
   position: fixed;
   top: 0;
   left: 0;
@@ -29,7 +29,7 @@ playlist_html = f"""
   object-fit: cover;
   z-index: -1;
   opacity: 0.25;
-}
+}}
 
 /* 2. Global Transparency Reset for Streamlit layouts and custom widgets */
 .stApp, 
@@ -43,18 +43,18 @@ div[data-testid="stMarkdownContainer"] p,
 .stRadio,
 div[role="radiogroup"],
 div[data-baseweb="base-input"],
-[data-testid="stFileUploader"] {
+[data-testid="stFileUploader"] {{
     background: transparent !important;
     background-color: transparent !important;
     box-shadow: none !important;
     border-color: transparent !important;
-}
+}}
 
 /* Removes default top/bottom block padding */
-[data-testid="stAppViewContainer"] {
+[data-testid="stAppViewContainer"] {{
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-}
+}}
 </style>
 
 <video id="bgVideo" autoplay muted playsinline>
