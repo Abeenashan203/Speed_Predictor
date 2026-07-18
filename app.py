@@ -17,7 +17,6 @@ import os
 import time
 from skimage.feature import hog
 
-"""## 2.STREAMLIT FRONTEND CONFIGURATION"""
 
 st.set_page_config(page_title="VEHICLE SPEED DETECTOR",layout="wide")
 st.title("🚗 Vehicle Speed Estimator & Analytics System")
