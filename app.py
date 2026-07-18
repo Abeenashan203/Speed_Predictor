@@ -19,24 +19,42 @@ url_2 = "https://raw.githubusercontent.com/Abeenashan203/Speed_Predictor/main/ca
 
 playlist_html = f"""
 <style>
-#bgVideo {{
+/* 1. Anchors the background video to fill the viewport seamlessly */
+#bgVideo {
   position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%; 
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
-  opacity: 0.25; /* Dims video for pristine readability */
-}}
+  z-index: -1;
+  opacity: 0.25;
+}
 
-/* Force all Streamlit backgrounds to be transparent so the video shines through */
-.stApp, .main, block-container, [data-testid="stAppViewContainer"] {{
+/* 2. Global Transparency Reset for Streamlit layouts and custom widgets */
+.stApp, 
+.main, 
+block-container, 
+[data-testid="stAppViewContainer"],
+[data-testid="stHeader"],
+[data-testid="stSidebar"],
+[data-testid="stVerticalBlock"] > div,
+div[data-testid="stMarkdownContainer"] p,
+.stRadio,
+div[role="radiogroup"],
+div[data-baseweb="base-input"],
+[data-testid="stFileUploader"] {
     background: transparent !important;
     background-color: transparent !important;
-}}
+    box-shadow: none !important;
+    border-color: transparent !important;
+}
+
+/* Removes default top/bottom block padding */
+[data-testid="stAppViewContainer"] {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
 </style>
 
 <video id="bgVideo" autoplay muted playsinline>
