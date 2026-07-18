@@ -66,7 +66,7 @@ st.markdown(playlist_html, unsafe_allow_html=True)
 # ==========================================
 # ⚡ DASHBOARD HEADERS & SIDEBAR 📊
 # ==========================================
-st.title("⚡ 🚗 Vehicle Speed Estimator & Analytics System 📊 🎯")
+st.title("🚗 Vehicle Speed Estimator & Analytics System 📈")
 st.markdown("-----")
 
 st.sidebar.header("🎛️ System Configuration ⚙️")
